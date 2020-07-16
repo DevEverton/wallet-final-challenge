@@ -17,17 +17,22 @@ transactionRouter.get("/", async (req, res) => {
   }
 });
 
-//Add income at period start
+//Add transaction
 transactionRouter.post("/", async (req, res) => {
   try {
-    const period = req.query.period;
-    if (!period) {
-      res.send(errorMessage);
-    } else {
-      //   const transactions = await model.find({ yearMonth: period });
-      //   res.send(transactions);
-      res.end();
-    }
+    const { description, value, category, year, month, day, type } = req.body;
+    const newTransaction = await model.create({
+      description,
+      value,
+      category,
+      year,
+      month,
+      day,
+      yearMonth: `${year}-${month}`,
+      yearMonthDay: `${year}-${month}-${day}`,
+      type,
+    });
+    res.send(newTransaction);
   } catch (err) {
     res.status(400).send(err);
   }
