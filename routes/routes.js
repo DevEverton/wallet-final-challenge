@@ -19,8 +19,23 @@ transactionRouter.get("/", async (req, res) => {
 
 //Add transaction
 transactionRouter.post("/", async (req, res) => {
+  const { description, value, category, year, month, day, type } = req.body;
   try {
-    const { description, value, category, year, month, day, type } = req.body;
+    const buildStrings = (year, month, day) => {
+      let yearMonth = month < 10 ? `${year}-0${month}` : `${year}-${month}`;
+      let yearMonthDay = null;
+      if (month < 10 && day < 10) {
+        yearMonthDay = `${year}-0${month}-0${day}`;
+      } else if (month < 10) {
+        yearMonthDay = `${year}-0${month}-${day}`;
+      } else if (day < 10) {
+        yearMonthDay = `${year}-${month}-0${day}`;
+      } else {
+        yearMonthDay = `${year}-${month}-${day}`;
+      }
+      return [yearMonth, yearMonthDay];
+    };
+
     const newTransaction = await model.create({
       description,
       value,
@@ -28,11 +43,21 @@ transactionRouter.post("/", async (req, res) => {
       year,
       month,
       day,
-      yearMonth: `${year}-${month}`,
-      yearMonthDay: `${year}-${month}-${day}`,
+      yearMonth: buildStrings(year, month, day)[0],
+      yearMonthDay: buildStrings(year, month, day)[1],
       type,
     });
     res.send(newTransaction);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+//Edit transaction history
+transactionRouter.put("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    res.send(id);
   } catch (err) {
     res.status(400).send(err);
   }
