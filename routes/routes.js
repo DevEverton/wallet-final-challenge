@@ -70,6 +70,17 @@ transactionRouter.put("/:id", async (req, res) => {
   }
 });
 
+//Delete transaction
+transactionRouter.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await model.findOneAndDelete({ _id: id });
+    res.send({ id: id, status: "Successfully deleted" });
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
 const errorMessage = {
   error:
     'É necessário informar o parametro "period", cujo valor deve estar no formato yyyy-mm',
