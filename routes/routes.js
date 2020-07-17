@@ -55,9 +55,16 @@ transactionRouter.post("/", async (req, res) => {
 
 //Edit transaction history
 transactionRouter.put("/:id", async (req, res) => {
+  const { description, value, category, year, month, day } = req.body;
   const id = req.params.id;
   try {
-    res.send(id);
+    const updatedTransaction = await model.findOneAndUpdate(
+      { _id: id },
+      { description, value, category, year, month, day },
+      { new: true }
+    );
+
+    res.send(updatedTransaction);
   } catch (err) {
     res.status(400).send(err);
   }

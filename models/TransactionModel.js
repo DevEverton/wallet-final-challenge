@@ -40,5 +40,6 @@ let schema = mongoose.Schema({
 });
 
 const TransactionModel = mongoose.model("transaction", schema);
+mongoose.set("useFindAndModify", false);
 
 module.exports = TransactionModel;
