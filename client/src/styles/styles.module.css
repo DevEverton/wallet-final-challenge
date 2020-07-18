@@ -15,7 +15,10 @@
   font-weight: 500;
 }
 
-.buttons {
+.addButton {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
 }
 
 .topContainer {
@@ -23,6 +26,7 @@
   background-color: #b9e1dc;
   padding: 2rem;
   border-radius: 0 0 1rem 1rem;
+  position: relative;
 }
 
 .title {
@@ -31,4 +35,17 @@
   font-size: 2.5rem;
   color: #756c83;
   display: inline;
+}
+
+.statusContainer {
+  background-color: whitesmoke;
+  border-radius: 1rem;
+  border: 1px solid lightGray;
+  width: 300px;
+  height: 175x;
+}
+
+.statusText {
+  padding-left: 1rem;
+  font-weight: lighter;
 }
