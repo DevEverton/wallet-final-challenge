@@ -1,0 +1,19 @@
+.cardDate {
+  font-weight: 200;
+  font-size: 1.3rem;
+  text-align: right;
+  margin-bottom: 2px;
+  margin-left: 0.5rem;
+}
+
+.cardDescription {
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+.cardValue {
+  font-weight: 500;
+}
+
+.buttons {
+}
