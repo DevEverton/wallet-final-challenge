@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import transactionDataService from "../src/services/TransactionService.js";
 import TransactionCard from "./components/TransactionCard.js";
+import TopContainer from "./components/TopContainer.js";
+import Input from "./components/Input.js";
+import css from "./styles/styles.module.css";
 
 export default function App() {
   const [transactions, setTransactions] = useState({});
@@ -31,14 +34,32 @@ export default function App() {
   };
   console.log(period);
   console.log(transactions);
+  const handleInputChange = () => {};
 
   return (
     <div>
-      <div className="container right">
-        <h3>Desafio Final do Bootcamp Full Stack</h3>
-        <TransactionCard />
-        <TransactionCard />
-        <TransactionCard />
+      <div className="container">
+        <TopContainer />
+        <div className="row l12 s6">
+          <div className="col">
+            <button
+              style={{ marginTop: "1.75rem" }}
+              className="btn waves-effect waves-light"
+            >
+              <i className="material-icons">add</i>
+            </button>
+          </div>
+          <div className="col l11 s5">
+            <Input
+              id={"filtro"}
+              label={"Filtro"}
+              value={""}
+              min={0}
+              max={100000}
+              onInputChange={handleInputChange}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
