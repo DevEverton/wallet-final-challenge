@@ -8,7 +8,7 @@ export default function Input({ min, max, value, id, label, onInputChange }) {
   };
 
   return (
-    <div className="input-field">
+    <div style={{ margin: "0.5rem 1.25rem " }} className="input-field">
       <input
         style={{ fontWeight: "200" }}
         type="number"
@@ -17,7 +17,7 @@ export default function Input({ min, max, value, id, label, onInputChange }) {
         max={max}
         id={id}
         onChange={handleInputChange}
-      />{" "}
+      />
       <label className="active" htmlFor={id}>
         {label}
       </label>

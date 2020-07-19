@@ -3,12 +3,13 @@ import transactionDataService from "../src/services/TransactionService.js";
 import TransactionCard from "./components/TransactionCard.js";
 import TopContainer from "./components/TopContainer.js";
 import Input from "./components/Input.js";
-import StatusContainer from "./components/StatusContainer.js";
+import StatusCard from "./components/StatusCard.js";
 import css from "./styles/styles.module.css";
 
 export default function App() {
   const [transactions, setTransactions] = useState({});
   const [period, setPeriod] = useState("");
+  const [transactionsIncomes, setTransactionsIncomes] = useState(0);
 
   useEffect(() => {
     const date = new Date();
@@ -23,6 +24,10 @@ export default function App() {
     getTransactions(period);
   }, [period]);
 
+  useEffect(() => {
+    getTransactionsIncomes(transactions);
+  }, [transactions]);
+
   const getTransactions = async (period) => {
     try {
       const transactionsByPeriod = await transactionDataService.getByPeriod(
@@ -33,14 +38,33 @@ export default function App() {
       console.log(err);
     }
   };
-  console.log(period);
-  console.log(transactions);
+
+  const getTransactionsIncomes = async (transactions) => {
+    try {
+      const incomes = await transactions
+        .filter((transaction) => transaction.type === "+")
+        .reduce((acc, transaction) => {
+          return acc + transaction.value;
+        }, 0);
+      setTransactionsIncomes(incomes);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleInputChange = () => {};
 
   return (
     <div>
       <div className="container">
         <TopContainer />
+        <div className={css.statusContanier}>
+          <StatusCard description={"Lançamentos"} value={transactions.length} />
+          <StatusCard description={"Receitas"} value={transactionsIncomes} />
+          <StatusCard />
+          <StatusCard />
+        </div>
+
         <Input
           id={"filtro"}
           label={"Filtro"}
@@ -49,7 +73,6 @@ export default function App() {
           max={100000}
           onInputChange={handleInputChange}
         />
-        <StatusContainer />
       </div>
     </div>
   );
