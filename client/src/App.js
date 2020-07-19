@@ -10,6 +10,7 @@ export default function App() {
   const [transactions, setTransactions] = useState({});
   const [period, setPeriod] = useState("");
   const [transactionsIncomes, setTransactionsIncomes] = useState(0);
+  const [transactionsExpenses, setTransactionsExpenses] = useState(0);
 
   useEffect(() => {
     const date = new Date();
@@ -26,6 +27,7 @@ export default function App() {
 
   useEffect(() => {
     getTransactionsIncomes(transactions);
+    getTransactionsExpenses(transactions);
   }, [transactions]);
 
   const getTransactions = async (period) => {
@@ -52,6 +54,19 @@ export default function App() {
     }
   };
 
+  const getTransactionsExpenses = async (transactions) => {
+    try {
+      const expenses = await transactions
+        .filter((transaction) => transaction.type === "-")
+        .reduce((acc, transaction) => {
+          return acc + transaction.value;
+        }, 0);
+      setTransactionsExpenses(expenses);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleInputChange = () => {};
 
   return (
@@ -59,9 +74,27 @@ export default function App() {
       <div className="container">
         <TopContainer />
         <div className={css.statusContanier}>
-          <StatusCard description={"Lançamentos"} value={transactions.length} />
-          <StatusCard description={"Receitas"} value={transactionsIncomes} />
-          <StatusCard />
+          <StatusCard
+            id={"transactions"}
+            description={"Lançamentos"}
+            value={transactions.length}
+          />
+          <StatusCard
+            id={"income"}
+            description={"Receitas"}
+            value={transactionsIncomes.toLocaleString("pt-br", {
+              style: "currency",
+              currency: "BRL",
+            })}
+          />
+          <StatusCard
+            id={"expense"}
+            description={"Despesas"}
+            value={transactionsExpenses.toLocaleString("pt-br", {
+              style: "currency",
+              currency: "BRL",
+            })}
+          />
           <StatusCard />
         </div>
 
