@@ -16,8 +16,7 @@ export default function TransactionCard({
       <div className={css.flexContainer}>
         <div className={css.categoryTransactionCard}>Receita</div>
         <div className={css.descriptionTransactionCard}>
-          Consultoria de desenvolvimento de software. Consultoria de
-          desenvolvimento de software.
+          Consultoria de desenvolvimento de software.
         </div>
         <div className={css.valueTransactionCard}>R$ 1500,00</div>
       </div>

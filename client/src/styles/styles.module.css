@@ -34,12 +34,12 @@
   border-radius: 1rem;
   flex: 1;
   margin: 0.5rem;
+  padding: 0.5rem;
   opacity: 0.85;
 }
 
 .statusValue {
   font-family: var(--font);
-  padding-left: 0.5rem;
   margin: 0.2rem 0.2rem 0.2rem 0.5rem;
   font-weight: 400;
   font-size: 1.5rem;
@@ -55,11 +55,11 @@
 }
 
 .statusDescription {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: var(--font);
   margin: 0.2rem 0.2rem 0.2rem 0.5rem;
-  padding-left: 0.5rem;
   color: var(--black);
+  font-weight: 600;
+  font-size: 1.2rem;
 }
 
 .scrollView {
@@ -120,7 +120,7 @@
 .flexContainer {
   display: flex;
   flex-direction: column;
-  padding: 0.3rem;
+  padding: 0.5rem;
 }
 
 .buttonsTransactionCard {
