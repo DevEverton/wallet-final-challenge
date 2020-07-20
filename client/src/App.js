@@ -95,7 +95,17 @@ export default function App() {
               currency: "BRL",
             })}
           />
-          <StatusCard />
+          <StatusCard
+            id={"balance"}
+            description={"Saldo"}
+            value={(transactionsIncomes - transactionsExpenses).toLocaleString(
+              "pt-br",
+              {
+                style: "currency",
+                currency: "BRL",
+              }
+            )}
+          />
         </div>
 
         <Input
@@ -106,6 +116,17 @@ export default function App() {
           max={100000}
           onInputChange={handleInputChange}
         />
+        <div className={css.scrollView}>
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+          <TransactionCard />
+        </div>
       </div>
     </div>
   );

@@ -1,18 +1,9 @@
-.cardDate {
-  font-weight: 200;
-  font-size: 1.3rem;
-  text-align: right;
-  margin-bottom: 2px;
-  margin-left: 0.5rem;
-}
-
-.cardDescription {
-  font-weight: 300;
-  font-size: 1rem;
-}
-
-.cardValue {
-  font-weight: 500;
+:root {
+  --green: #80ac7b;
+  --red: #e8505b;
+  --blue: #e1f4f3;
+  --white: #ffffff;
+  --black: #333333;
 }
 
 .addButton {
@@ -23,7 +14,7 @@
 
 .topContainer {
   margin-top: 0;
-  background-color: #b9e1dc;
+  background-color: var(--blue);
   padding: 2rem;
   border-radius: 0 0 1rem 1rem;
   position: relative;
@@ -33,14 +24,13 @@
   font-family: "Pacifico", cursive;
   margin: 2rem;
   font-size: 2.5rem;
-  color: #756c83;
+  color: var(--black);
   display: inline;
 }
 
 .statusCard {
-  background-color: white;
+  background-color: var(--blue);
   border-radius: 1rem;
-  border: 1px solid lightGray;
   flex: 1;
   margin: 0.5rem;
 }
@@ -50,9 +40,9 @@
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   padding-left: 0.5rem;
   margin: 0.2rem 0.2rem 0.2rem 0.5rem;
-  font-weight: bold;
+  font-weight: 400;
   font-size: 1.5rem;
-  color: #756c83;
+  color: var(--black);
 }
 
 .statusContanier {
@@ -66,5 +56,23 @@
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   margin: 0.2rem 0.2rem 0.2rem 0.5rem;
   padding-left: 0.5rem;
-  color: #756c83;
+  color: var(--black);
+}
+
+.scrollView {
+  overflow: auto;
+  white-space: nowrap;
+  margin: 1rem;
+}
+
+.transactionCard {
+  height: 15rem;
+  width: 25rem;
+  background-color: var(--white);
+  margin: 1rem;
+  border-radius: 1rem;
+  display: inline-block;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
 }

@@ -6,26 +6,26 @@ export default function StatusCard({ id, description, value }) {
 
   useEffect(() => {
     const colorPicker = {
-      income: "#14b1ab",
+      income: "#80ac7b",
       expense: "#e8505b",
     };
     switch (id) {
-      case "income" || "balance":
-        setColor("green");
+      case "income":
+      case "balance":
+        setColor(colorPicker.income);
         break;
       case "expense":
         setColor(colorPicker.expense);
+        break;
       default:
         break;
     }
   }, [id]);
 
   return (
-    <div className={css.statusCard}>
+    <div style={{ backgroundColor: `${color}` }} className={css.statusCard}>
       <p className={css.statusDescription}>{description}</p>
-      <p style={{ color: `${color}` }} className={css.statusValue}>
-        {value}
-      </p>
+      <p className={css.statusValue}>{value}</p>
     </div>
   );
 }
