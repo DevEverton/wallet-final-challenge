@@ -4,6 +4,7 @@
   --blue: #e1f4f3;
   --white: #ffffff;
   --black: #333333;
+  --font: Helvetica, Arial;
 }
 
 .addButton {
@@ -22,7 +23,7 @@
 
 .title {
   font-family: "Pacifico", cursive;
-  margin: 2rem;
+  margin: 1rem;
   font-size: 2.5rem;
   color: var(--black);
   display: inline;
@@ -33,11 +34,11 @@
   border-radius: 1rem;
   flex: 1;
   margin: 0.5rem;
+  opacity: 0.85;
 }
 
 .statusValue {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: var(--font);
   padding-left: 0.5rem;
   margin: 0.2rem 0.2rem 0.2rem 0.5rem;
   font-weight: 400;
@@ -49,6 +50,8 @@
   display: flex;
   flex-direction: row;
   padding: 1rem;
+  overflow: auto;
+  white-space: nowrap;
 }
 
 .statusDescription {
@@ -66,13 +69,62 @@
 }
 
 .transactionCard {
-  height: 15rem;
-  width: 25rem;
+  height: 14rem;
+  width: 20rem;
   background-color: var(--white);
   margin: 1rem;
   border-radius: 1rem;
   display: inline-block;
-  text-align: center;
-  padding: 14px;
+  padding: 0;
   text-decoration: none;
+  opacity: 0.8;
+  position: relative;
+}
+
+.dateTransactionCard {
+  background-color: var(--green);
+  font-family: var(--font);
+  height: 2rem;
+  border-radius: 1rem 1rem 0 0;
+  text-align: left;
+  padding-left: 0.5rem;
+  padding-top: 0.1rem;
+  opacity: 0.8;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+
+.categoryTransactionCard {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 1.75rem;
+  color: var(--black);
+}
+
+.descriptionTransactionCard {
+  font-family: var(--font);
+  font-weight: lighter;
+  word-wrap: break-word;
+  width: 100%;
+  white-space: pre-wrap;
+  margin-top: 0.5rem;
+}
+
+.valueTransactionCard {
+  position: absolute;
+  bottom: 0.5rem;
+  font-weight: 400;
+  font-size: 1.75rem;
+}
+
+.flexContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0.3rem;
+}
+
+.buttonsTransactionCard {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0.5rem;
 }
