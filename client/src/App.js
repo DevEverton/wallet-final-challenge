@@ -11,6 +11,7 @@ export default function App() {
   const [period, setPeriod] = useState("");
   const [transactionsIncomes, setTransactionsIncomes] = useState(0);
   const [transactionsExpenses, setTransactionsExpenses] = useState(0);
+  const [transactionsCards, setTransactionsCards] = useState([]);
 
   useEffect(() => {
     const date = new Date();
@@ -28,6 +29,7 @@ export default function App() {
   useEffect(() => {
     getTransactionsIncomes(transactions);
     getTransactionsExpenses(transactions);
+    buildTransactionsCards(transactions);
   }, [transactions]);
 
   const getTransactions = async (period) => {
@@ -62,6 +64,30 @@ export default function App() {
           return acc + transaction.value;
         }, 0);
       setTransactionsExpenses(expenses);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const buildTransactionsCards = async (transactions) => {
+    try {
+      let transactionsCards = [];
+      transactions.forEach((transaction) => {
+        transactionsCards.push(
+          <TransactionCard
+            id={transaction._id}
+            day={transaction.day}
+            category={transaction.category}
+            description={transaction.description}
+            value={transaction.value.toLocaleString("pt-br", {
+              style: "currency",
+              currency: "BRL",
+            })}
+            type={transaction.type}
+          />
+        );
+      });
+      setTransactionsCards(transactionsCards);
     } catch (err) {
       console.log(err);
     }
@@ -116,17 +142,7 @@ export default function App() {
           max={100000}
           onInputChange={handleInputChange}
         />
-        <div className={css.scrollView}>
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
-        </div>
+        <div className={css.scrollView}>{transactionsCards}</div>
       </div>
     </div>
   );

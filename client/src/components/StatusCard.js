@@ -23,7 +23,7 @@ export default function StatusCard({ id, description, value }) {
   }, [id]);
 
   return (
-    <div style={{ backgroundColor: `${color}` }} className={css.statusCard}>
+    <div style={{ backgroundColor: color }} className={css.statusCard}>
       <p className={css.statusDescription}>{description}</p>
       <p className={css.statusValue}>{value}</p>
     </div>
