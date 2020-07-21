@@ -6,7 +6,7 @@ export default function TopContainer() {
     <div className={css.topContainer}>
       <p className={css.title}>wallet</p>
       <div className={css.addButton}>
-        <button className="btn-floating waves-effect waves-light black">
+        <button className="btn-floating waves-effect waves-light grey darken-3">
           <i className="material-icons">add</i>
         </button>
       </div>

@@ -72,9 +72,10 @@ export default function App() {
   const buildTransactionsCards = async (transactions) => {
     try {
       let transactionsCards = [];
-      transactions.forEach((transaction) => {
+      await transactions.forEach((transaction) => {
         transactionsCards.push(
           <TransactionCard
+            key={transaction._id}
             id={transaction._id}
             day={transaction.day}
             category={transaction.category}
@@ -88,6 +89,8 @@ export default function App() {
         );
       });
       setTransactionsCards(transactionsCards);
+      console.log(transactionsCards);
+      console.log(transactionsCards);
     } catch (err) {
       console.log(err);
     }
@@ -142,7 +145,15 @@ export default function App() {
           max={100000}
           onInputChange={handleInputChange}
         />
-        <div className={css.scrollView}>{transactionsCards}</div>
+        <div className={css.scrollView}>
+          {transactionsCards.slice(0, transactionsCards.length / 2)}
+        </div>
+        <div className={css.scrollView}>
+          {transactionsCards.slice(
+            transactionsCards.length / 2,
+            transactionsCards.length
+          )}
+        </div>
       </div>
     </div>
   );
