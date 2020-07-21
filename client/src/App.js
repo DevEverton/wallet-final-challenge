@@ -49,6 +49,10 @@ export default function App() {
       const transactionsByPeriod = await transactionDataService.getByPeriod(
         period
       );
+
+      await transactionsByPeriod.data.sort((a, b) => {
+        return a.day - b.day;
+      });
       setTransactions(transactionsByPeriod.data);
     } catch (err) {
       console.log(err);
@@ -155,20 +159,23 @@ export default function App() {
             )}
           />
         </div>
-        <SelectPeriod
-          month={selectedMonth}
-          year={selectedYear}
-          onMonthChange={handleMonthChange}
-          onYearChange={handleYearChange}
-        />
-        <Input
-          id={"filtro"}
-          label={"Filtro"}
-          value={""}
-          min={0}
-          max={100000}
-          onInputChange={handleInputChange}
-        />
+        <div className={css.flex}>
+          <SelectPeriod
+            month={selectedMonth}
+            year={selectedYear}
+            onMonthChange={handleMonthChange}
+            onYearChange={handleYearChange}
+          />
+          <Input
+            id={"filtro"}
+            label={"Filtro"}
+            value={""}
+            min={0}
+            max={100000}
+            onInputChange={handleInputChange}
+          />
+        </div>
+
         <div className={css.scrollView}>
           {transactionsCards.slice(0, transactionsCards.length / 2)}
         </div>
