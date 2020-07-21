@@ -28,6 +28,10 @@ export default function App() {
   }, [period]);
 
   useEffect(() => {
+    setPeriod(`${selectedYear}-${selectedMonth}`);
+  }, [selectedYear, selectedMonth]);
+
+  useEffect(() => {
     getTransactionsIncomes(transactions);
     getTransactionsExpenses(transactions);
     buildTransactionsCards(transactions);
@@ -114,11 +118,9 @@ export default function App() {
 
   const handleMonthChange = (newValue) => {
     setSelectedMonth(newValue);
-    setPeriod(`${selectedYear}-${selectedMonth}`);
   };
   const handleYearChange = (newValue) => {
     setSelectedYear(newValue);
-    setPeriod(`${selectedYear}-${selectedMonth}`);
   };
 
   return (
