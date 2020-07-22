@@ -12,6 +12,7 @@ export default function App() {
   const [period, setPeriod] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
+  const [input, setInput] = useState("");
   const [transactionsIncomes, setTransactionsIncomes] = useState(0);
   const [transactionsExpenses, setTransactionsExpenses] = useState(0);
   const [transactionsCards, setTransactionsCards] = useState([]);
@@ -30,6 +31,10 @@ export default function App() {
   useEffect(() => {
     setPeriod(`${selectedYear}-${selectedMonth}`);
   }, [selectedYear, selectedMonth]);
+
+  useEffect(() => {
+    searchEngine(input);
+  }, [input]);
 
   useEffect(() => {
     getTransactionsIncomes(transactions);
@@ -114,13 +119,58 @@ export default function App() {
     }
   };
 
-  const handleInputChange = () => {};
+  const handleInputChange = (newValue) => {
+    setInput(newValue);
+  };
 
   const handleMonthChange = (newValue) => {
     setSelectedMonth(newValue);
   };
   const handleYearChange = (newValue) => {
     setSelectedYear(newValue);
+  };
+
+  const searchEngine = async (description) => {
+    const removeAccents = (text) => {
+      text = text.toLowerCase();
+      text = text.replace(new RegExp("[ÁÀÂÃ]", "gi"), "a");
+      text = text.replace(new RegExp("[ÉÈÊ]", "gi"), "e");
+      text = text.replace(new RegExp("[ÍÌÎ]", "gi"), "i");
+      text = text.replace(new RegExp("[ÓÒÔÕ]", "gi"), "o");
+      text = text.replace(new RegExp("[ÚÙÛ]", "gi"), "u");
+      text = text.replace(new RegExp("[Ç]", "gi"), "c");
+      return text;
+    };
+    try {
+      let descriptionLowerCase = description.toLowerCase();
+
+      let newTransactions = JSON.parse(JSON.stringify(transactions));
+
+      newTransactions.forEach((transaction) => {
+        transaction.description = removeAccents(transaction.description);
+      });
+
+      const itemsFound = newTransactions.filter((transaction) =>
+        transaction.description.includes(descriptionLowerCase)
+      );
+
+      const transactionsToShow = [];
+
+      itemsFound.forEach((item) => {
+        const found = transactions.find((transaction) => {
+          return transaction._id === item._id;
+        });
+        transactionsToShow.push(found);
+      });
+
+      if (description.length === 0) {
+        getTransactions(period);
+      } else {
+        setTransactions(transactionsToShow);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -161,22 +211,20 @@ export default function App() {
             )}
           />
         </div>
-        <div className={css.flex}>
-          <SelectPeriod
-            month={selectedMonth}
-            year={selectedYear}
-            onMonthChange={handleMonthChange}
-            onYearChange={handleYearChange}
-          />
-          <Input
-            id={"filtro"}
-            label={"Filtro"}
-            value={""}
-            min={0}
-            max={100000}
-            onInputChange={handleInputChange}
-          />
-        </div>
+        <SelectPeriod
+          month={selectedMonth}
+          year={selectedYear}
+          onMonthChange={handleMonthChange}
+          onYearChange={handleYearChange}
+        />
+        <Input
+          id={"filtro"}
+          label={"Filtro"}
+          value={input}
+          min={0}
+          max={100000}
+          onInputChange={handleInputChange}
+        />
 
         <div className={css.scrollView}>
           {transactionsCards.slice(0, transactionsCards.length / 2)}

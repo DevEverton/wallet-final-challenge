@@ -1,24 +1,23 @@
 import React from "react";
 
-export default function Input({ min, max, value, id, label, onInputChange }) {
+export default function Input({ min, max, value, label, onInputChange }) {
   const handleInputChange = (event) => {
     const newValue = event.target.value;
-    const id = event.target.id;
-    onInputChange(newValue, id);
+    onInputChange(newValue);
   };
 
   return (
-    <div style={{ margin: "0.5rem 1.25rem " }} className="input-field">
+    <div style={{ margin: "0 1.25rem " }} className="input-field">
       <input
         style={{ fontWeight: "200" }}
-        type="number"
+        type="text"
         value={value}
         min={min}
         max={max}
-        id={id}
+        id={"filtro"}
         onChange={handleInputChange}
       />
-      <label className="active" htmlFor={id}>
+      <label className="active" htmlFor={"filtro"}>
         {label}
       </label>
     </div>
