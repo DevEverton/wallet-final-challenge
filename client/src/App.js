@@ -9,6 +9,7 @@ import SelectPeriod from "./components/SelectPeriod.js";
 
 export default function App() {
   const [transactions, setTransactions] = useState({});
+  const [transactionsCount, setTransactionsCount] = useState(0);
   const [period, setPeriod] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
@@ -34,6 +35,7 @@ export default function App() {
 
   useEffect(() => {
     searchEngine(input);
+    // eslint-disable-next-line
   }, [input]);
 
   useEffect(() => {
@@ -63,6 +65,7 @@ export default function App() {
         return a.day - b.day;
       });
       setTransactions(transactionsByPeriod.data);
+      setTransactionsCount(transactionsByPeriod.data.length);
     } catch (err) {
       console.log(err);
     }
@@ -143,7 +146,6 @@ export default function App() {
     };
     try {
       let descriptionLowerCase = description.toLowerCase();
-
       let newTransactions = JSON.parse(JSON.stringify(transactions));
 
       newTransactions.forEach((transaction) => {
@@ -166,7 +168,10 @@ export default function App() {
       if (description.length === 0) {
         getTransactions(period);
       } else {
-        setTransactions(transactionsToShow);
+        getTransactionsIncomes(transactionsToShow);
+        getTransactionsExpenses(transactionsToShow);
+        setTransactionsCount(transactionsToShow.length);
+        buildTransactionsCards(transactionsToShow);
       }
     } catch (err) {
       console.log(err);
@@ -181,7 +186,7 @@ export default function App() {
           <StatusCard
             id={"transactions"}
             description={"Lançamentos"}
-            value={transactions.length}
+            value={transactionsCount}
           />
           <StatusCard
             id={"income"}
