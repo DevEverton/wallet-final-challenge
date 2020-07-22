@@ -165,13 +165,17 @@ export default function App() {
         transactionsToShow.push(found);
       });
 
+      const updateRender = (transactions) => {
+        getTransactionsIncomes(transactions);
+        getTransactionsExpenses(transactions);
+        setTransactionsCount(transactions.length);
+        buildTransactionsCards(transactions);
+      };
+
       if (description.length === 0) {
-        getTransactions(period);
+        updateRender(transactions);
       } else {
-        getTransactionsIncomes(transactionsToShow);
-        getTransactionsExpenses(transactionsToShow);
-        setTransactionsCount(transactionsToShow.length);
-        buildTransactionsCards(transactionsToShow);
+        updateRender(transactionsToShow);
       }
     } catch (err) {
       console.log(err);
