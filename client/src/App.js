@@ -6,6 +6,9 @@ import Input from "./components/Input.js";
 import StatusCard from "./components/StatusCard.js";
 import css from "./styles/styles.module.css";
 import SelectPeriod from "./components/SelectPeriod.js";
+// import Modal from "react-modal";
+
+// Modal.setAppElement("#root");
 
 export default function App() {
   const [transactions, setTransactions] = useState({});
@@ -17,6 +20,7 @@ export default function App() {
   const [transactionsIncomes, setTransactionsIncomes] = useState(0);
   const [transactionsExpenses, setTransactionsExpenses] = useState(0);
   const [transactionsCards, setTransactionsCards] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     const dates = getYearMonth();
@@ -182,10 +186,15 @@ export default function App() {
     }
   };
 
+  const handleModalOpen = (isOpen) => {
+    console.log(isOpen);
+  };
+
   return (
     <div>
       <div className="container">
         <TopContainer />
+
         <div className={css.statusContanier}>
           <StatusCard
             id={"transactions"}
